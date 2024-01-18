@@ -25,6 +25,14 @@
         .section {
             text-align: center;
             padding: 50px;
+            opacity: 0; /* Initially hidden */
+            transform: translateY(20px); /* Initially moved down */
+            transition: opacity 0.5s ease, transform 0.5s ease;
+        }
+
+        .section.active {
+            opacity: 1;
+            transform: translateY(0);
         }
 
         .frame {
@@ -38,6 +46,14 @@
             width: 50%;
             max-width: 400px;
             margin-right: 20px;
+            opacity: 0; /* Initially hidden */
+            transform: translateX(20px); /* Initially moved right */
+            transition: opacity 0.5s ease, transform 0.5s ease;
+        }
+
+        .image-container.active {
+            opacity: 1;
+            transform: translateX(0);
         }
 
         .image-container img {
@@ -50,6 +66,14 @@
             width: 50%;
             max-width: 400px;
             text-align: left;
+            opacity: 0; /* Initially hidden */
+            transform: translateX(-20px); /* Initially moved left */
+            transition: opacity 0.5s ease, transform 0.5s ease;
+        }
+
+        .text-box.active {
+            opacity: 1;
+            transform: translateX(0);
         }
     </style>
 </head>
@@ -100,29 +124,15 @@
             new fullpage('#fullpage', {
                 autoScrolling: true,
                 scrollHorizontally: true,
-                navigation: true
+                navigation: true,
+                afterLoad: function(origin, destination, direction) {
+                    destination.item.classList.add('active');
+                }
             });
-
-            var requestAnimationFrame = window.requestAnimationFrame || window.mozRequestAnimationFrame ||
-                                      window.webkitRequestAnimationFrame || window.msRequestAnimationFrame;
-
-            function changeColorsOnScroll() {
-                var scrollPosition = window.scrollY;
-                var backgroundColor = scrollPosition > 100 ? 'black' : 'white';
-                var textColor = backgroundColor === 'black' ? 'white' : 'black';
-
-                document.body.style.backgroundColor = backgroundColor;
-                document.body.style.color = textColor;
-
-                requestAnimationFrame(changeColorsOnScroll);
-            }
-
-            changeColorsOnScroll();
         });
     </script>
 </body>
 </html>
-
 
         
         
