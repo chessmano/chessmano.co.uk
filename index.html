@@ -25,8 +25,8 @@
         .section {
             text-align: center;
             padding: 50px;
-            opacity: 0; /* Initially hidden */
-            transform: translateY(20px); /* Initially moved down */
+            opacity: 0;
+            transform: translateY(20px);
             transition: opacity 0.5s ease, transform 0.5s ease;
         }
 
@@ -46,8 +46,8 @@
             width: 50%;
             max-width: 400px;
             margin-right: 20px;
-            opacity: 0; /* Initially hidden */
-            transform: translateX(20px); /* Initially moved right */
+            opacity: 0;
+            transform: translateX(20px);
             transition: opacity 0.5s ease, transform 0.5s ease;
         }
 
@@ -66,8 +66,8 @@
             width: 50%;
             max-width: 400px;
             text-align: left;
-            opacity: 0; /* Initially hidden */
-            transform: translateX(-20px); /* Initially moved left */
+            opacity: 0;
+            transform: translateX(-20px);
             transition: opacity 0.5s ease, transform 0.5s ease;
         }
 
@@ -124,22 +124,36 @@
             new fullpage('#fullpage', {
                 autoScrolling: true,
                 scrollHorizontally: true,
-                navigation: true,
-                afterLoad: function(origin, destination, direction) {
-                    destination.item.classList.add('active');
+                navigation: true
+            });
+
+            document.addEventListener('keydown', function (event) {
+                // Check if the pressed key is 'E'
+                if (event.key === 'e' || event.key === 'E') {
+                    activateSections();
                 }
             });
+
+            function activateSections() {
+                var sections = document.querySelectorAll('.section');
+                sections.forEach(function (section) {
+                    section.classList.add('active');
+                });
+
+                var imageContainers = document.querySelectorAll('.image-container');
+                imageContainers.forEach(function (container) {
+                    container.classList.add('active');
+                });
+
+                var textBoxes = document.querySelectorAll('.text-box');
+                textBoxes.forEach(function (textBox) {
+                    textBox.classList.add('active');
+                });
+            }
         });
     </script>
 </body>
 </html>
-
-        
-        
-    
-
-
-
 
 
 
