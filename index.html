@@ -25,7 +25,24 @@
                 <img src="image3.jpg" alt="Image 3">
             </div>
         </div>
-        <!-- Add more sections and frames as needed -->
+      .section {
+            text-align: center;
+            padding: 50px;
+        }
+
+        .frame {
+            width: 80%;
+            max-width: 600px;
+            margin: 0 auto;
+            border: 2px solid #333;
+            overflow: hidden;
+        }
+
+        .frame img {
+            width: 100%;
+            height: auto;
+            display: block;  
+    <!-- Add more sections and frames as needed -->
     </div>
 
     <script src="fullpage.min.js"></script> <!-- Include the fullPage.js library -->
@@ -68,38 +85,16 @@
             var scrollPosition = window.scrollY;
 
             // Set the background color based on the scroll position
-            var backgroundColor = scrollPosition > 100 ? 'white' : 'black';
+            var backgroundColor = scrollPosition > 100 ? 'black' : 'white';
 
             // Set the text color based on the background color
-            var textColor = backgroundColor === 'white' ? 'black' : 'white';
+            var textColor = backgroundColor === 'black' ? 'white' : 'black';
 
             // Apply the new styles
             document.body.style.backgroundColor = backgroundColor;
             document.body.style.color = textColor;
         });
     </script>
-  /* Add your custom styles here */
-
-      .section {
-            text-align: center;
-            padding: 50px;
-        }
-
-        .frame {
-            width: 80%;
-            max-width: 600px;
-            margin: 0 auto;
-            border: 2px solid #333;
-            overflow: hidden;
-        }
-
-        .frame img {
-            width: 100%;
-            height: auto;
-            display: block;
-        }
-
-
  </body>
 </html>
 
