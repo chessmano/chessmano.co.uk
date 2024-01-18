@@ -5,31 +5,8 @@
     <title>Animated Scroll-down Presentation</title>
     <link rel="stylesheet" href="fullpage.min.css"> <!-- Include the fullPage.js CSS -->
     <meta charset="UTF-8"
-    <style>
-        body {
-            margin: 0;
-            padding: 0;
-            height: 200vh; /* Make the page longer to demonstrate scrolling */
-            transition: background-color 0.5s ease; /* Smooth transition effect */
-            background-color: black; /* Initial background color */
-            color: white; /* Default text color */
-            font-size: 24px;
-            line-height: 1.6;
-        }
-
-        .content {
-            padding: 20px;
-        }
-    </style>
-</head>
-<body>
-
-    <div class="content">
-        <p>This is your page content. Scroll down to see the background color transition.</p>
-</head>
-<body>
-
-    <div id="fullpage">
+  
+        <div id="fullpage">
         <div class="section">
             <h2>Section 1</h2>
             <div class="frame">
@@ -61,7 +38,30 @@
         });
     </script>
     </div>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            height: 200vh; /* Make the page longer to demonstrate scrolling */
+            transition: background-color 0.5s ease; /* Smooth transition effect */
+            background-color: black; /* Initial background color */
+            color: white; /* Default text color */
+            font-size: 24px;
+            line-height: 1.6;
+        }
 
+        .content {
+            padding: 20px;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="content">
+        <p>This is your page content. Scroll down to see the background color transition.</p>
+</head>
+<body>
+    </div>
     <script>
         document.addEventListener('scroll', function() {
             // Calculate the scroll position
@@ -100,7 +100,7 @@
         }
 
 
-</body>
+ </body>
 </html>
 
         
