@@ -2,101 +2,124 @@
 <html lang="en">
 <head>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="UTF-8">
     <title>Animated Scroll-down Presentation</title>
-    <link rel="stylesheet" href="fullpage.min.css"> <!-- Include the fullPage.js CSS -->
-    <meta charset="UTF-8"
-  
-        <div id="fullpage">
-        <div class="section">
-            <h2>Section 1</h2>
-            <div class="frame">
-                <img src="image1.jpg" alt="Image 1">
-            </div>
-        </div>
-        <div class="section">
-            <h2>Section 2</h2>
-            <div class="frame">
-                <img src="image2.jpg" alt="Image 2">
-            </div>
-        </div>
-        <div class="section">
-            <h2>Section 3</h2>
-            <div class="frame">
-                <img src="image3.jpg" alt="Image 3">
-            </div>
-        </div>
-     
-    <!-- Add more sections and frames as needed -->
-    </div>
-
-    <script src="fullpage.min.js"></script> <!-- Include the fullPage.js library -->
-    <script>
-        new fullpage('#fullpage', {
-            // Options for fullPage.js
-            autoScrolling: true,
-            scrollHorizontally: true,
-            navigation: true
-        });
-    </script>
-    </div>
+    <link rel="stylesheet" href="fullpage.min.css">
+    <script src="fullpage.min.js"></script>
     <style>
         body {
             margin: 0;
             padding: 0;
-            height: 200vh; /* Make the page longer to demonstrate scrolling */
-            transition: background-color 0.5s ease; /* Smooth transition effect */
-            background-color: black; /* Initial background color */
-            color: white; /* Default text color */
+            height: 200vh;
+            background-color: black;
+            color: white;
             font-size: 24px;
             line-height: 1.6;
         }
 
         .content {
             padding: 20px;
-             .section {
+        }
+
+        .section {
             text-align: center;
             padding: 50px;
         }
 
         .frame {
-            width: 80%;
-            max-width: 600px;
-            margin: 0 auto;
-            border: 2px solid #333;
-            overflow: hidden;
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            justify-content: center;
         }
 
-        .frame img {
+        .image-container {
+            width: 50%;
+            max-width: 400px;
+            margin-right: 20px;
+        }
+
+        .image-container img {
             width: 100%;
             height: auto;
-            display: block;  
+            display: block;
+        }
+
+        .text-box {
+            width: 50%;
+            max-width: 400px;
+            text-align: left;
         }
     </style>
 </head>
 <body>
 
-    <div class="content">
-        <p>This is your page content. Scroll down to see the background color transition.</p>
-</head>
-<body>
+    <div id="fullpage">
+        <div class="section">
+            <h2>Section 1</h2>
+            <div class="frame">
+                <div class="image-container">
+                    <img src="image1.jpg" alt="Image 1">
+                </div>
+                <div class="text-box">
+                    <p>This is some text related to Image 1.</p>
+                    <p>You can add more details or information here.</p>
+                </div>
+            </div>
+        </div>
+        <div class="section">
+            <h2>Section 2</h2>
+            <div class="frame">
+                <div class="image-container">
+                    <img src="image2.jpg" alt="Image 2">
+                </div>
+                <div class="text-box">
+                    <p>This is some text related to Image 2.</p>
+                    <p>You can add more details or information here.</p>
+                </div>
+            </div>
+        </div>
+        <div class="section">
+            <h2>Section 3</h2>
+            <div class="frame">
+                <div class="image-container">
+                    <img src="image3.jpg" alt="Image 3">
+                </div>
+                <div class="text-box">
+                    <p>This is some text related to Image 3.</p>
+                    <p>You can add more details or information here.</p>
+                </div>
+            </div>
+        </div>
+        <!-- Add more sections and frames as needed -->
     </div>
+
     <script>
-        document.addEventListener('scroll', function() {
-            // Calculate the scroll position
-            var scrollPosition = window.scrollY;
+        document.addEventListener('DOMContentLoaded', function () {
+            new fullpage('#fullpage', {
+                autoScrolling: true,
+                scrollHorizontally: true,
+                navigation: true
+            });
 
-            // Set the background color based on the scroll position
-            var backgroundColor = scrollPosition > 100 ? 'black' : 'white';
+            var requestAnimationFrame = window.requestAnimationFrame || window.mozRequestAnimationFrame ||
+                                      window.webkitRequestAnimationFrame || window.msRequestAnimationFrame;
 
-            // Set the text color based on the background color
-            var textColor = backgroundColor === 'black' ? 'white' : 'black';
+            function changeColorsOnScroll() {
+                var scrollPosition = window.scrollY;
+                var backgroundColor = scrollPosition > 100 ? 'black' : 'white';
+                var textColor = backgroundColor === 'black' ? 'white' : 'black';
 
-            // Apply the new styles
-            document.body.style.backgroundColor = backgroundColor;
-            document.body.style.color = textColor;
+                document.body.style.backgroundColor = backgroundColor;
+                document.body.style.color = textColor;
+
+                requestAnimationFrame(changeColorsOnScroll);
+            }
+
+            changeColorsOnScroll();
         });
     </script>
- </body>
+</body>
 </html>
 
         
