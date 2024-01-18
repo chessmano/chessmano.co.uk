@@ -1,159 +1,150 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta charset="UTF-8">
-    <title>Animated Scroll-down Presentation</title>
-    <link rel="stylesheet" href="fullpage.min.css">
-    <script src="fullpage.min.js"></script>
-    <style>
-        body {
-            margin: 0;
-            padding: 0;
-            height: 200vh;
-            background-color: white; /* Initial background color */
-            color: black; /* Default text color */
-            font-size: 24px;
-            line-height: 1.6;
-            transition: background-color 0.5s ease, color 0.5s ease; /* Smooth transition effect */
-        }
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Chess Game</title>
+  <style>
+    body {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      margin: 0;
+    }
 
-        .content {
-            padding: 20px;
-        }
+    #chessboard {
+      display: grid;
+      grid-template-columns: repeat(8, 50px);
+      grid-template-rows: repeat(8, 50px);
+    }
 
-        .section {
-            text-align: center;
-            padding: 50px;
-            opacity: 0;
-            transform: translateY(20px);
-            transition: opacity 0.5s ease, transform 0.5s ease;
-        }
+    .square {
+      width: 50px;
+      height: 50px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      font-size: 24px;
+      cursor: pointer;
+    }
 
-        .section.active {
-            opacity: 1;
-            transform: translateY(0);
-        }
+    .white {
+      background-color: #f0d9b5;
+    }
 
-        .frame {
-            display: flex;
-            flex-direction: row;
-            align-items: center;
-            justify-content: center;
-        }
-
-        .image-container {
-            width: 50%;
-            max-width: 400px;
-            margin-right: 20px;
-            opacity: 0;
-            transform: translateX(20px);
-            transition: opacity 0.5s ease, transform 0.5s ease;
-        }
-
-        .image-container.active {
-            opacity: 1;
-            transform: translateX(0);
-        }
-
-        .image-container img {
-            width: 100%;
-            height: auto;
-            display: block;
-        }
-
-        .text-box {
-            width: 50%;
-            max-width: 400px;
-            text-align: left;
-            opacity: 0;
-            transform: translateX(-20px);
-            transition: opacity 0.5s ease, transform 0.5s ease;
-        }
-
-        .text-box.active {
-            opacity: 1;
-            transform: translateX(0);
-        }
-    </style>
+    .black {
+      background-color: #b58863;
+    }
+  </style>
 </head>
 <body>
 
-    <div id="fullpage">
-        <div class="section">
-            <h2>Section 1</h2>
-            <div class="frame">
-                <div class="image-container">
-                    <img src="image1.jpg" alt="Image 1">
-                </div>
-                <div class="text-box">
-                    <p>This is some text related to Image 1.</p>
-                    <p>You can add more details or information here.</p>
-                </div>
-            </div>
-        </div>
-        <div class="section">
-            <h2>Section 2</h2>
-            <div class="frame">
-                <div class="image-container">
-                    <img src="image2.jpg" alt="Image 2">
-                </div>
-                <div class="text-box">
-                    <p>This is some text related to Image 2.</p>
-                    <p>You can add more details or information here.</p>
-                </div>
-            </div>
-        </div>
-        <div class="section">
-            <h2>Section 3</h2>
-            <div class="frame">
-                <div class="image-container">
-                    <img src="image3.jpg" alt="Image 3">
-                </div>
-                <div class="text-box">
-                    <p>This is some text related to Image 3.</p>
-                    <p>You can add more details or information here.</p>
-                </div>
-            </div>
-        </div>
-        <!-- Add more sections and frames as needed -->
-    </div>
+<div id="chessboard"></div>
 
-    <script>
-        document.addEventListener('DOMContentLoaded', function () {
-            new fullpage('#fullpage', {
-                autoScrolling: true,
-                scrollHorizontally: true,
-                navigation: true
-            });
+<script>
+  const chessboard = document.getElementById('chessboard');
+  let board = [];
+  let currentPlayer = 'white';
+  let selectedPiece = null;
 
-            document.addEventListener('keydown', function (event) {
-                // Check if the pressed key is 'E'
-                if (event.key === 'e' || event.key === 'E') {
-                    activateSections();
-                }
-            });
+  function initializeBoard() {
+    for (let row = 0; row < 8; row++) {
+      board[row] = [];
+      for (let col = 0; col < 8; col++) {
+        const square = document.createElement('div');
+        square.classList.add('square', (row + col) % 2 === 0 ? 'white' : 'black');
+        square.dataset.row = row;
+        square.dataset.col = col;
+        square.addEventListener('click', handleSquareClick);
+        chessboard.appendChild(square);
+        board[row][col] = square;
+      }
+    }
 
-            function activateSections() {
-                var sections = document.querySelectorAll('.section');
-                sections.forEach(function (section) {
-                    section.classList.add('active');
-                });
+    setupPieces();
+  }
 
-                var imageContainers = document.querySelectorAll('.image-container');
-                imageContainers.forEach(function (container) {
-                    container.classList.add('active');
-                });
+  function setupPieces() {
+    // White pieces
+    placePiece('♜', 0, 0);
+    placePiece('♞', 0, 1);
+    placePiece('♝', 0, 2);
+    placePiece('♛', 0, 3);
+    placePiece('♚', 0, 4);
+    placePiece('♝', 0, 5);
+    placePiece('♞', 0, 6);
+    placePiece('♜', 0, 7);
+    for (let col = 0; col < 8; col++) {
+      placePiece('♟', 1, col);
+    }
 
-                var textBoxes = document.querySelectorAll('.text-box');
-                textBoxes.forEach(function (textBox) {
-                    textBox.classList.add('active');
-                });
-            }
-        });
-    </script>
+    // Black pieces
+    for (let col = 0; col < 8; col++) {
+      placePiece('♙', 6, col);
+    }
+    placePiece('♖', 7, 0);
+    placePiece('♘', 7, 1);
+    placePiece('♗', 7, 2);
+    placePiece('♕', 7, 3);
+    placePiece('♔', 7, 4);
+    placePiece('♗', 7, 5);
+    placePiece('♘', 7, 6);
+    placePiece('♖', 7, 7);
+  }
+
+  function placePiece(piece, row, col) {
+    board[row][col].innerHTML = piece;
+  }
+
+  function handleSquareClick(event) {
+    const clickedSquare = event.target;
+    const { row, col } = clickedSquare.dataset;
+
+    if (!selectedPiece) {
+      if (board[row][col].innerHTML !== '' && board[row][col].innerHTML.toLowerCase() === currentPlayer) {
+        selectedPiece = { row, col };
+        highlightLegalMoves(row, col);
+      }
+    } else {
+      movePiece(selectedPiece.row, selectedPiece.col, row, col);
+      selectedPiece = null;
+      currentPlayer = currentPlayer === 'white' ? 'black' : 'white';
+    }
+  }
+
+  function highlightLegalMoves(row, col) {
+    // For simplicity, highlight all empty squares as legal moves
+    for (let i = 0; i < 8; i++) {
+      for (let j = 0; j < 8; j++) {
+        if (board[i][j].innerHTML === '') {
+          board[i][j].classList.add('legal-move');
+        }
+      }
+    }
+  }
+
+  function movePiece(startRow, startCol, endRow, endCol) {
+    board[endRow][endCol].innerHTML = board[startRow][startCol].innerHTML;
+    board[startRow][startCol].innerHTML = '';
+    clearLegalMovesHighlight();
+  }
+
+  function clearLegalMovesHighlight() {
+    // Clear legal move highlights
+    for (let i = 0; i < 8; i++) {
+      for (let j = 0; j < 8; j++) {
+        board[i][j].classList.remove('legal-move');
+      }
+    }
+  }
+
+  initializeBoard();
+</script>
+
 </body>
 </html>
+
 
 
 
