@@ -6,17 +6,16 @@
     <title>Minesweeper</title>
     <style>
         body {
+            font-family: Arial, sans-serif;
             display: flex;
             align-items: center;
             justify-content: center;
             height: 100vh;
             margin: 0;
-            font-family: Arial, sans-serif;
         }
 
         #minesweeper {
             display: grid;
-            grid-template-columns: repeat(16, 30px);
             gap: 2px;
         }
 
@@ -43,9 +42,9 @@
     <div id="minesweeper"></div>
 
     <script>
-        const rows = 16;
-        const cols = 16;
-        const totalMines = 40;
+        const rows = 10;
+        const cols = 10;
+        const totalMines = 15;
         let minefield = [];
 
         function initializeGame() {
@@ -165,6 +164,7 @@
     </script>
 </body>
 </html>
+
 
 
 
