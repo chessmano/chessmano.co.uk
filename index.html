@@ -1,149 +1,171 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Chess Game</title>
-  <style>
-    body {
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      height: 100vh;
-      margin: 0;
-    }
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Minesweeper</title>
+    <style>
+        body {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            margin: 0;
+            font-family: Arial, sans-serif;
+        }
 
-    #chessboard {
-      display: grid;
-      grid-template-columns: repeat(8, 50px);
-      grid-template-rows: repeat(8, 50px);
-    }
+        #minesweeper {
+            display: grid;
+            grid-template-columns: repeat(16, 30px);
+            gap: 2px;
+        }
 
-    .square {
-      width: 50px;
-      height: 50px;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      font-size: 24px;
-      cursor: pointer;
-    }
+        .cell {
+            width: 30px;
+            height: 30px;
+            border: 1px solid #ccc;
+            text-align: center;
+            line-height: 30px;
+            cursor: pointer;
+        }
 
-    .white {
-      background-color: #f0d9b5;
-    }
+        .mine {
+            background-color: #d9534f;
+            color: #fff;
+        }
 
-    .black {
-      background-color: #b58863;
-    }
-  </style>
+        .revealed {
+            background-color: #eee;
+        }
+    </style>
 </head>
 <body>
+    <div id="minesweeper"></div>
 
-<div id="chessboard"></div>
+    <script>
+        const rows = 16;
+        const cols = 16;
+        const totalMines = 40;
+        let minefield = [];
 
-<script>
-  const chessboard = document.getElementById('chessboard');
-  let board = [];
-  let currentPlayer = 'white';
-  let selectedPiece = null;
-
-  function initializeBoard() {
-    for (let row = 0; row < 8; row++) {
-      board[row] = [];
-      for (let col = 0; col < 8; col++) {
-        const square = document.createElement('div');
-        square.classList.add('square', (row + col) % 2 === 0 ? 'white' : 'black');
-        square.dataset.row = row;
-        square.dataset.col = col;
-        square.addEventListener('click', handleSquareClick);
-        chessboard.appendChild(square);
-        board[row][col] = square;
-      }
-    }
-
-    setupPieces();
-  }
-
-  function setupPieces() {
-    // White pieces
-    placePiece('♜', 0, 0);
-    placePiece('♞', 0, 1);
-    placePiece('♝', 0, 2);
-    placePiece('♛', 0, 3);
-    placePiece('♚', 0, 4);
-    placePiece('♝', 0, 5);
-    placePiece('♞', 0, 6);
-    placePiece('♜', 0, 7);
-    for (let col = 0; col < 8; col++) {
-      placePiece('♟', 1, col);
-    }
-
-    // Black pieces
-    for (let col = 0; col < 8; col++) {
-      placePiece('♙', 6, col);
-    }
-    placePiece('♖', 7, 0);
-    placePiece('♘', 7, 1);
-    placePiece('♗', 7, 2);
-    placePiece('♕', 7, 3);
-    placePiece('♔', 7, 4);
-    placePiece('♗', 7, 5);
-    placePiece('♘', 7, 6);
-    placePiece('♖', 7, 7);
-  }
-
-  function placePiece(piece, row, col) {
-    board[row][col].innerHTML = piece;
-  }
-
-  function handleSquareClick(event) {
-    const clickedSquare = event.target;
-    const { row, col } = clickedSquare.dataset;
-
-    if (!selectedPiece) {
-      if (board[row][col].innerHTML !== '' && board[row][col].innerHTML.toLowerCase() === currentPlayer) {
-        selectedPiece = { row, col };
-        highlightLegalMoves(row, col);
-      }
-    } else {
-      movePiece(selectedPiece.row, selectedPiece.col, row, col);
-      selectedPiece = null;
-      currentPlayer = currentPlayer === 'white' ? 'black' : 'white';
-    }
-  }
-
-  function highlightLegalMoves(row, col) {
-    // For simplicity, highlight all empty squares as legal moves
-    for (let i = 0; i < 8; i++) {
-      for (let j = 0; j < 8; j++) {
-        if (board[i][j].innerHTML === '') {
-          board[i][j].classList.add('legal-move');
+        function initializeGame() {
+            createMinefield();
+            placeMines();
+            calculateNumbers();
+            renderMinefield();
         }
-      }
-    }
-  }
 
-  function movePiece(startRow, startCol, endRow, endCol) {
-    board[endRow][endCol].innerHTML = board[startRow][startCol].innerHTML;
-    board[startRow][startCol].innerHTML = '';
-    clearLegalMovesHighlight();
-  }
+        function createMinefield() {
+            minefield = new Array(rows).fill(null).map(() => new Array(cols).fill({ mine: false, revealed: false }));
+        }
 
-  function clearLegalMovesHighlight() {
-    // Clear legal move highlights
-    for (let i = 0; i < 8; i++) {
-      for (let j = 0; j < 8; j++) {
-        board[i][j].classList.remove('legal-move');
-      }
-    }
-  }
+        function placeMines() {
+            let minesPlaced = 0;
 
-  initializeBoard();
-</script>
+            while (minesPlaced < totalMines) {
+                const row = Math.floor(Math.random() * rows);
+                const col = Math.floor(Math.random() * cols);
 
+                if (!minefield[row][col].mine) {
+                    minefield[row][col].mine = true;
+                    minesPlaced++;
+                }
+            }
+        }
+
+        function calculateNumbers() {
+            for (let row = 0; row < rows; row++) {
+                for (let col = 0; col < cols; col++) {
+                    if (!minefield[row][col].mine) {
+                        minefield[row][col].number = countAdjacentMines(row, col);
+                    }
+                }
+            }
+        }
+
+        function countAdjacentMines(row, col) {
+            let count = 0;
+
+            for (let i = -1; i <= 1; i++) {
+                for (let j = -1; j <= 1; j++) {
+                    const newRow = row + i;
+                    const newCol = col + j;
+
+                    if (newRow >= 0 && newRow < rows && newCol >= 0 && newCol < cols && minefield[newRow][newCol].mine) {
+                        count++;
+                    }
+                }
+            }
+
+            return count;
+        }
+
+        function renderMinefield() {
+            const minesweeperElement = document.getElementById('minesweeper');
+
+            for (let row = 0; row < rows; row++) {
+                for (let col = 0; col < cols; col++) {
+                    const cell = document.createElement('div');
+                    cell.classList.add('cell');
+                    cell.dataset.row = row;
+                    cell.dataset.col = col;
+
+                    cell.addEventListener('click', () => revealCell(row, col));
+
+                    minesweeperElement.appendChild(cell);
+                }
+            }
+        }
+
+        function revealCell(row, col) {
+            if (minefield[row][col].revealed) return;
+
+            const cellElement = document.querySelector(`.cell[data-row="${row}"][data-col="${col}"]`);
+            minefield[row][col].revealed = true;
+
+            if (minefield[row][col].mine) {
+                cellElement.classList.add('mine');
+                revealAllMines();
+                alert('Game Over! You hit a mine.');
+            } else {
+                cellElement.classList.add('revealed');
+                if (minefield[row][col].number > 0) {
+                    cellElement.textContent = minefield[row][col].number;
+                } else {
+                    revealEmptyCells(row, col);
+                }
+            }
+        }
+
+        function revealEmptyCells(row, col) {
+            for (let i = -1; i <= 1; i++) {
+                for (let j = -1; j <= 1; j++) {
+                    const newRow = row + i;
+                    const newCol = col + j;
+
+                    if (newRow >= 0 && newRow < rows && newCol >= 0 && newCol < cols) {
+                        revealCell(newRow, newCol);
+                    }
+                }
+            }
+        }
+
+        function revealAllMines() {
+            for (let row = 0; row < rows; row++) {
+                for (let col = 0; col < cols; col++) {
+                    if (minefield[row][col].mine) {
+                        const cellElement = document.querySelector(`.cell[data-row="${row}"][data-col="${col}"]`);
+                        cellElement.classList.add('mine');
+                    }
+                }
+            }
+        }
+
+        initializeGame();
+    </script>
 </body>
 </html>
+
 
 
 
