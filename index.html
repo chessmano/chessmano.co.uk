@@ -39,9 +39,10 @@
     background-color: #f5f5dc;
     box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.5);
     display: flex;
-    justify-content: start;
-    align-items: center;
-    padding: 20px; /* Adjust the padding to control the text position */
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: flex-start;
+    padding: 20px;
  }
 
  .page-left {
@@ -65,6 +66,11 @@
     color: #333;
  }
 
+ /* Centered text styles */
+ .centered-text {
+    text-align: center;
+ }
+
 </style>
 </head>
 <body>
@@ -73,10 +79,12 @@
  <div class="cover"></div>
  <div class="pages">
     <div class="page page-left">
-        <p>This is the left page text. It's aligned to the left margin.</p>
+        <p class="centered-text">This is the left page text. It's at the top.</p>
+        <p class="centered-text">This is the centered text in the left page.</p>
     </div>
     <div class="page page-right">
-        <p>This is the right page text. It's aligned to the right margin.</p>
+        <p class="centered-text">This is the right page text. It's also at the top.</p>
+        <p class="centered-text">This is the centered text in the right page.</p>
     </div>
  </div>
 </div>
