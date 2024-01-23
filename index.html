@@ -1,223 +1,68 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Minesweeper</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            height: 100vh;
-            margin: 0;
-        }
+<style>
+ #book {
+    position: relative;
+    width: 510px; /* Adjusted width to include the 2px spacing */
+    height: 300px;
+    background-color: #eee;
+    overflow: hidden;
+    margin: auto;
+ }
 
-        #minesweeper {
-            display: grid;
-            gap: 2px;
-        }
+ .cover {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: url('book-cover.jpg');
+    background-size: cover;
+ }
 
-        .cell {
-            width: 30px;
-            height: 30px;
-            border: 1px solid #ccc;
-            text-align: center;
-            line-height: 30px;
-            cursor: pointer;
-        }
+ .pages {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+ }
 
-        .mine {
-            background-color: #d9534f;
-            color: #fff;
-        }
+ .page {
+    position: absolute;
+    top: 0;
+    width: 48%; /* Adjusted width to include the 2px spacing */
+    height: 100%;
+    background-color: #f5f5dc; /* Cream color */
+    box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.5);
+ }
 
-        .revealed {
-            background-color: #eee;
-        }
-    </style>
+ .page-left {
+    left: 0;
+    transform-origin: top left;
+    transform: rotateY(0deg);
+    border-right: 2px solid #ccc; /* Thin line between pages */
+ }
+
+ .page-right {
+    right: 0;
+    transform-origin: top right;
+    transform: rotateY(0deg);
+ }
+</style>
 </head>
 <body>
-    <div id="minesweeper"></div>
 
-    <script>
-        const rows = 10;
-        const cols = 10;
-        const totalMines = 15;
-        let minefield = [];
+<div id="book">
+ <div class="cover"></div>
+ <div class="pages">
+    <div class="page page-left"></div>
+    <div class="page page-right"></div>
+ </div>
+</div>
 
-        function initializeGame() {
-            createMinefield();
-            placeMines();
-            calculateNumbers();
-            renderMinefield();
-        }
-
-        function createMinefield() {
-            minefield = new Array(rows).fill(null).map(() => new Array(cols).fill({ mine: false, revealed: false }));
-        }
-
-        function placeMines() {
-            let minesPlaced = 0;
-
-            while (minesPlaced < totalMines) {
-                const row = Math.floor(Math.random() * rows);
-                const col = Math.floor(Math.random() * cols);
-
-                if (!minefield[row][col].mine) {
-                    minefield[row][col].mine = true;
-                    minesPlaced++;
-                }
-            }
-        }
-
-        function calculateNumbers() {
-            for (let row = 0; row < rows; row++) {
-                for (let col = 0; col < cols; col++) {
-                    if (!minefield[row][col].mine) {
-                        minefield[row][col].number = countAdjacentMines(row, col);
-                    }
-                }
-            }
-        }
-
-        function countAdjacentMines(row, col) {
-            let count = 0;
-
-            for (let i = -1; i <= 1; i++) {
-                for (let j = -1; j <= 1; j++) {
-                    const newRow = row + i;
-                    const newCol = col + j;
-
-                    if (newRow >= 0 && newRow < rows && newCol >= 0 && newCol < cols && minefield[newRow][newCol].mine) {
-                        count++;
-                    }
-                }
-            }
-
-            return count;
-        }
-
-        function renderMinefield() {
-            const minesweeperElement = document.getElementById('minesweeper');
-
-            for (let row = 0; row < rows; row++) {
-                for (let col = 0; col < cols; col++) {
-                    const cell = document.createElement('div');
-                    cell.classList.add('cell');
-                    cell.dataset.row = row;
-                    cell.dataset.col = col;
-
-                    cell.addEventListener('click', () => revealCell(row, col));
-
-                    minesweeperElement.appendChild(cell);
-                }
-            }
-        }
-
-        function revealCell(row, col) {
-            if (minefield[row][col].revealed) return;
-
-            const cellElement = document.querySelector(`.cell[data-row="${row}"][data-col="${col}"]`);
-            minefield[row][col].revealed = true;
-
-            if (minefield[row][col].mine) {
-                cellElement.classList.add('mine');
-                revealAllMines();
-                alert('Game Over! You hit a mine.');
-            } else {
-                cellElement.classList.add('revealed');
-                if (minefield[row][col].number > 0) {
-                    cellElement.textContent = minefield[row][col].number;
-                } else {
-                    revealEmptyCells(row, col);
-                }
-            }
-        }
-
-        function revealEmptyCells(row, col) {
-            for (let i = -1; i <= 1; i++) {
-                for (let j = -1; j <= 1; j++) {
-                    const newRow = row + i;
-                    const newCol = col + j;
-
-                    if (newRow >= 0 && newRow < rows && newCol >= 0 && newCol < cols) {
-                        revealCell(newRow, newCol);
-                    }
-                }
-            }
-        }
-
-        function revealAllMines() {
-            for (let row = 0; row < rows; row++) {
-                for (let col = 0; col < cols; col++) {
-                    if (minefield[row][col].mine) {
-                        const cellElement = document.querySelector(`.cell[data-row="${row}"][data-col="${col}"]`);
-                        cellElement.classList.add('mine');
-                    }
-                }
-            }
-        }
-
-        initializeGame();
-    </script>
 </body>
 </html>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
