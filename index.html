@@ -4,12 +4,12 @@
 <style>
  #book {
     position: relative;
-    width: 1020px; /* Adjusted width to include the 2px spacing */
+    width: 1020px;
     height: 600px;
     background-color: #eee;
     overflow: hidden;
     margin: auto;
-    border: 1px solid black; /* Thin black border around the book */
+    border: 1px solid black;
  }
 
  .cover {
@@ -34,17 +34,21 @@
  .page {
     position: absolute;
     top: 0;
-    width: 48%; /* Adjusted width to include the 2px spacing */
+    width: 48%;
     height: 100%;
-    background-color: #f5f5dc; /* Cream color */
+    background-color: #f5f5dc;
     box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.5);
+    display: flex;
+    justify-content: start;
+    align-items: center;
+    padding: 20px; /* Adjust the padding to control the text position */
  }
 
  .page-left {
     left: 0;
     transform-origin: top left;
     transform: rotateY(0deg);
-    border-right: 2px solid #ccc; /* Thin line between pages */
+    border-right: 2px solid #ccc;
  }
 
  .page-right {
@@ -52,6 +56,15 @@
     transform-origin: top right;
     transform: rotateY(0deg);
  }
+
+ /* Text styles */
+ .page-left p,
+ .page-right p {
+    margin: 0;
+    font-size: 16px;
+    color: #333;
+ }
+
 </style>
 </head>
 <body>
@@ -59,8 +72,12 @@
 <div id="book">
  <div class="cover"></div>
  <div class="pages">
-    <div class="page page-left"></div>
-    <div class="page page-right"></div>
+    <div class="page page-left">
+        <p>This is the left page text. It's aligned to the left margin.</p>
+    </div>
+    <div class="page page-right">
+        <p>This is the right page text. It's aligned to the right margin.</p>
+    </div>
  </div>
 </div>
 
