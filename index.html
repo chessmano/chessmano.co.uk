@@ -10,7 +10,7 @@ body {
   padding: 0;
   }
 
-  
+ /* Book Display */ 
 #book {
  position: relative;
   width: 1020px;
@@ -44,15 +44,20 @@ body {
      width: 48%;
       height: 100%;
        background-color: #f5f5dc;
-        box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.5);
-       display: flex;
+      box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.5);
+     padding: 20px;
+
+    /* Flex Inspect */
+     display: flex;
       flex-direction: column;
-     justify-content: space-between;
-   align-items: flex-start;
-  padding: 20px;
+       flex-wrap: nowrap;
+      justify-content: space-between;
+     align-items: center;
+  
   }
 
-  .page-left {
+  /* Page Display */
+    .page-left {
     left: 0;
      transform-origin: top left;
       transform: rotateY(0deg);
@@ -74,6 +79,7 @@ body {
     }
 
   
+    /* Text Identities */
     .centered-text {
       text-align: center;
     }
