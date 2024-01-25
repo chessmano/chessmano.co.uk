@@ -136,7 +136,6 @@
     function updatePageText() {
       document.getElementById('leftPageText').textContent = texts[currentPage - 1][0];
       document.getElementById('rightPageText').textContent = texts[currentPage - 1][1];
-      document.querySelector('.circle').textContent = left-page-number;
     }
   </style>
 </head>
@@ -166,7 +165,6 @@
     ]; // Add more pairs as needed
 
     function goToNextPage() {
-     leftPagenumber = (current page % texts.length) + 1;
       currentPage = (currentPage % texts.length) + 1;
       updatePageText();
     }
@@ -179,14 +177,8 @@
     function updatePageText() {
       document.getElementById('leftPageText').textContent = texts[currentPage - 1][0];
       document.getElementById('rightPageText').textContent = texts[currentPage - 1][1];
-      document.getElementById('.leftPagenumber').textContent = circle[currentPage - 1][0]);
-      document.querySelector('.right-page-number').textContent = ().toString();
     }
-      let currentPage = 1;
-    let circle = [
-      ['2', '3'],
-      ['4', 5'],
-      ['6', '7']
+    
   </script>
 </body>
 </html>
