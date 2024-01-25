@@ -135,11 +135,10 @@
     <div class="pages">
       <div class="page page-left">
         <!-- Title Page -->
-        <p id="leftPageText">dummy text 1</p>
+        <p id="leftPageText"></p>
       </div>
       <div class="page page-right">
-        <p id="rightPageText">dummy text 1</p>
-        <span class="circle">1</span>
+        <p id="rightPageText"></p>
       </div>
     </div>
   </div>
@@ -149,8 +148,8 @@
   <script>
     let currentPage = 1;
     let texts = [
-      ['left text 1', 'right text 1'],
-      ['left text 2', 'right text 2'],
+      ['left text 1.<span class="circle">2</span>', 'right text 1 <span class="circle">3</span>'],
+      ['left text 2 <span class="circle">4</span>', 'right text <span class="circle">5</span>'],
       ['left text 3', 'right text 3']
     ]; // Add more pairs as needed
 
