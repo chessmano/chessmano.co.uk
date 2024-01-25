@@ -3,7 +3,7 @@
 <head>
   <title>LEGEND by Marie Lu</title>
   <style>
-      body {
+        body {
       margin: 0;
       padding: 0;
     }
@@ -138,11 +138,6 @@
       document.getElementById('rightPageText').textContent = texts[currentPage - 1][1];
       document.querySelector('.circle').textContent = currentPage;
     }
-  </script>
-</body>
-</html>
-
-
   </style>
 </head>
 <body>
@@ -152,11 +147,13 @@
       <div class="page page-left">
         <!-- Title Page -->
         <p id="leftPageText">dummy text 1</p>
-        <span class="circle left-circle">2</span>
+        <span class="circle left-circle">1</span>
+        <span class="page-number left-page-number">1</span>
       </div>
       <div class="page page-right">
         <p id="rightPageText">dummy text 1</p>
-        <span class="circle right-circle">3</span>
+        <span class="circle right-circle">1</span>
+        <span class="page-number right-page-number">2</span>
       </div>
     </div>
   </div>
@@ -165,8 +162,6 @@
   <button onclick="goToPrevPage()">Previous Page</button>
   <script>
     let currentPage = 1;
-    let leftCircleNumber = 2;
-    let rightCircleNumber = 3;
     let texts = [
       ['left text 1', 'right text 1'],
       ['left text 2', 'right text 2'],
@@ -175,23 +170,21 @@
 
     function goToNextPage() {
       currentPage = (currentPage % texts.length) + 1;
-      leftCircleNumber++;
-      rightCircleNumber++;
       updatePageText();
     }
 
     function goToPrevPage() {
       currentPage = (currentPage - 2 + texts.length) % texts.length + 1;
-      leftCircleNumber--;
-      rightCircleNumber--;
       updatePageText();
     }
 
     function updatePageText() {
       document.getElementById('leftPageText').textContent = texts[currentPage - 1][0];
       document.getElementById('rightPageText').textContent = texts[currentPage - 1][1];
-      document.querySelector('.left-circle').textContent = leftCircleNumber.toString();
-      document.querySelector('.right-circle').textContent = rightCircleNumber.toString();
+      document.querySelector('.left-circle').textContent = currentPage.toString();
+      document.querySelector('.right-circle').textContent = currentPage.toString();
+      document.querySelector('.left-page-number').textContent = currentPage.toString();
+      document.querySelector('.right-page-number').textContent = (currentPage + 1).toString();
     }
   </script>
 </body>
