@@ -127,36 +127,6 @@
     img.a {
       vertical-align: baseline;
     }
-  </style>
-</head>
-<body>
-  <div id="book">
-    <div class="cover"></div>
-    <div class="pages">
-      <div class="page page-left">
-        <!-- Title Page -->
-        <p id="leftPageText"></p>
-      </div>
-      <div class="page page-right">
-        <p id="rightPageText"></p>
-      </div>
-    </div>
-  </div>
-  <a href="index.html">Previous Page</a>
-  <button onclick="goToNextPage()">Next Page</button>
-  <button onclick="goToPrevPage()">Previous Page</button>
-  <script>
-    let currentPage = 1;
-    let texts = [
-      ['left text 1.<span class="circle">2</span>', 'right text 1 <span class="circle">3</span>'],
-      ['left text 2 <span class="circle">4</span>', 'right text <span class="circle">5</span>'],
-      ['left text 3', 'right text 3']
-    ]; // Add more pairs as needed
-
-    function goToNextPage() {
-      currentPage = (currentPage % texts.length) + 1;
-      updatePageText();
-    }
 
     function goToPrevPage() {
       currentPage = (currentPage - 2 + texts.length) % texts.length + 1;
@@ -172,3 +142,57 @@
 </body>
 </html>
 
+
+  </style>
+</head>
+<body>
+  <div id="book">
+    <div class="cover"></div>
+    <div class="pages">
+      <div class="page page-left">
+        <!-- Title Page -->
+        <p id="leftPageText">dummy text 1</p>
+        <span class="circle left-circle">2</span>
+      </div>
+      <div class="page page-right">
+        <p id="rightPageText">dummy text 1</p>
+        <span class="circle right-circle">3</span>
+      </div>
+    </div>
+  </div>
+  <a href="index.html">Previous Page</a>
+  <button onclick="goToNextPage()">Next Page</button>
+  <button onclick="goToPrevPage()">Previous Page</button>
+  <script>
+    let currentPage = 1;
+    let leftCircleNumber = 2;
+    let rightCircleNumber = 3;
+    let texts = [
+      ['left text 1', 'right text 1'],
+      ['left text 2', 'right text 2'],
+      ['left text 3', 'right text 3']
+    ]; // Add more pairs as needed
+
+    function goToNextPage() {
+      currentPage = (currentPage % texts.length) + 1;
+      leftCircleNumber++;
+      rightCircleNumber++;
+      updatePageText();
+    }
+
+    function goToPrevPage() {
+      currentPage = (currentPage - 2 + texts.length) % texts.length + 1;
+      leftCircleNumber--;
+      rightCircleNumber--;
+      updatePageText();
+    }
+
+    function updatePageText() {
+      document.getElementById('leftPageText').textContent = texts[currentPage - 1][0];
+      document.getElementById('rightPageText').textContent = texts[currentPage - 1][1];
+      document.querySelector('.left-circle').textContent = leftCircleNumber.toString();
+      document.querySelector('.right-circle').textContent = rightCircleNumber.toString();
+    }
+  </script>
+</body>
+</html>
