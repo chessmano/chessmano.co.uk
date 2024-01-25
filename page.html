@@ -3,7 +3,7 @@
 <head>
   <title>LEGEND by Marie Lu</title>
   <style>
-        body {
+    body {
       margin: 0;
       padding: 0;
     }
@@ -108,21 +108,20 @@
       justify-content: space-around;
     }
 
-    /* Css Number Page */ 
+   /* Css Number Page */ 
     span.circle {
       background: #010101;
       border-radius: 25%;
       -moz-border-radius: 25%;
-      -webkit-border-radius:25%;
+      -webkit-border-radius: 25%;
       color: #f1f1f1;
       display: inline-block;
       font-weight: bold;
-      line-height:20px;
+      line-height: 20px;
       margin-right: 2.5px;
       text-align: center;
       width: 20px;
     }
-
     /* Image placement */ 
     img.a {
       vertical-align: baseline;
@@ -154,7 +153,7 @@
       </div>
     </div>
   </div>
-  <a href="index.html">Previous Page</a>
+  <a href="index.html" onclick="goToPrevPage()">Previous Page</a>
   <button onclick="goToNextPage()">Next Page</button>
   <script>
     let currentPage = 1;
@@ -177,8 +176,20 @@
     function updatePageText() {
       document.getElementById('leftPageText').textContent = texts[currentPage - 1][0];
       document.getElementById('rightPageText').textContent = texts[currentPage - 1][1];
+
+      // Update the left circle text based on the current page
+      let leftCircleText;
+      if (currentPage === 1) {
+        leftCircleText = 2;
+      } else if (currentPage === 2) {
+        leftCircleText = 4;
+      } else if (currentPage === 3) {
+        leftCircleText = 6;
+      }
+
+      document.querySelector('.leftPagenumber').textContent = leftCircleText;
     }
-    
   </script>
 </body>
 </html>
+
