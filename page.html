@@ -136,7 +136,7 @@
     function updatePageText() {
       document.getElementById('leftPageText').textContent = texts[currentPage - 1][0];
       document.getElementById('rightPageText').textContent = texts[currentPage - 1][1];
-      document.querySelector('.circle').textContent = currentPage;
+      document.querySelector('.circle').textContent = left-page-number;
     }
   </style>
 </head>
@@ -147,8 +147,7 @@
       <div class="page page-left">
         <!-- Title Page -->
         <p id="leftPageText">dummy text 1</p>
-        <span class="circle left-circle">2</span>
-        <span class="left-page-number">2</span>
+        <span class="circle leftPagenumber">2</span>
       </div>
       <div class="page page-right">
         <p id="rightPageText">dummy text 1</p>
@@ -167,6 +166,7 @@
     ]; // Add more pairs as needed
 
     function goToNextPage() {
+     leftPagenumber = (current page % texts.length) + 1;
       currentPage = (currentPage % texts.length) + 1;
       updatePageText();
     }
@@ -179,11 +179,14 @@
     function updatePageText() {
       document.getElementById('leftPageText').textContent = texts[currentPage - 1][0];
       document.getElementById('rightPageText').textContent = texts[currentPage - 1][1];
-      document.querySelector('.left-circle').textContent = currentPage.toString();
-      document.querySelector('.right-circle').textContent = currentPage.toString();
-      document.querySelector('.left-page-number').textContent = currentPage.toString();
-      document.querySelector('.right-page-number').textContent = (currentPage + 1).toString();
+      document.getElementById('.leftPagenumber').textContent = circle[currentPage - 1][0]);
+      document.querySelector('.right-page-number').textContent = ().toString();
     }
+      let currentPage = 1;
+    let circle = [
+      ['2', '3'],
+      ['4', 5'],
+      ['6', '7']
   </script>
 </body>
 </html>
