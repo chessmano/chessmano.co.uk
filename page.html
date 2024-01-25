@@ -149,7 +149,7 @@
       </div>
       <div class="page page-right">
         <p id="rightPageText">dummy text 1</p>
-        <span class="circle right-page-number">3</span>
+        <span class="circle rightPagenumber">3</span>
       </div>
     </div>
   </div>
@@ -176,7 +176,9 @@
     function updatePageText() {
       document.getElementById('leftPageText').textContent = texts[currentPage - 1][0];
       document.getElementById('rightPageText').textContent = texts[currentPage - 1][1];
-
+      document.querySelector('.leftPagenumber').textContent = leftCircleText;
+      document.querySelector('.rightPagenumber').textContent = rightCircleText;
+     
       // Update the left circle text based on the current page
       let leftCircleText;
       if (currentPage === 1) {
@@ -187,8 +189,15 @@
         leftCircleText = 6;
       }
 
-      document.querySelector('.leftPagenumber').textContent = leftCircleText;
-    }
+     let rightCircleText;
+      if (currentPage === 1) {
+        rightCircleText = 3;
+      } else if (currentPage === 2) {
+        rightCircleText = 5;
+      } else if (currentPage === 3) {
+        rightCircleText = 7;
+      } 
+    
   </script>
 </body>
 </html>
