@@ -108,20 +108,6 @@
       justify-content: space-around;
     }
 
-   /* Css Number Page */ 
-    span.circle {
-      background: #010101;
-      border-radius: 25%;
-      -moz-border-radius: 25%;
-      -webkit-border-radius: 25%;
-      color: #f1f1f1;
-      display: inline-block;
-      font-weight: bold;
-      line-height: 20px;
-      margin-right: 2.5px;
-      text-align: center;
-      width: 20px;
-    }
     /* Image placement */ 
     img.a {
       vertical-align: baseline;
@@ -136,6 +122,22 @@
       document.getElementById('leftPageText').textContent = texts[currentPage - 1][0];
       document.getElementById('rightPageText').textContent = texts[currentPage - 1][1];
     }
+
+    /* Css Number Page */ 
+    span.circle {
+      background: #010101;
+      border-radius: 25%;
+      -moz-border-radius: 25%;
+      -webkit-border-radius: 25%;
+      color: #f1f1f1;
+      display: inline-block;
+      font-weight: bold;
+      line-height: 20px;
+      margin-right: 2.5px;
+      text-align: center;
+      width: 20px;
+    }
+
   </style>
 </head>
 <body>
@@ -174,31 +176,26 @@
     }
 
     function updatePageText() {
+      let leftCircleText;
+      let rightCircleText;
+
+      // Update the left and right circle text based on the current page
+      if (currentPage === 1) {
+        leftCircleText = 2;
+        rightCircleText = 3;
+      } else if (currentPage === 2) {
+        leftCircleText = 4;
+        rightCircleText = 5;
+      } else if (currentPage === 3) {
+        leftCircleText = 6;
+        rightCircleText = 7;
+      }
+
       document.getElementById('leftPageText').textContent = texts[currentPage - 1][0];
       document.getElementById('rightPageText').textContent = texts[currentPage - 1][1];
       document.querySelector('.leftPagenumber').textContent = leftCircleText;
       document.querySelector('.rightPagenumber').textContent = rightCircleText;
-     
-      // Update the left circle text based on the current page
-      let leftCircleText;
-      if (currentPage === 1) {
-        leftCircleText = 2;
-      } else if (currentPage === 2) {
-        leftCircleText = 4;
-      } else if (currentPage === 3) {
-        leftCircleText = 6;
-      }
-
-     let rightCircleText;
-      if (currentPage === 1) {
-        rightCircleText = 3;
-      } else if (currentPage === 2) {
-        rightCircleText = 5;
-      } else if (currentPage === 3) {
-        rightCircleText = 7;
-      } 
-    
+    }
   </script>
 </body>
 </html>
-
