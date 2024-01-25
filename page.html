@@ -3,7 +3,7 @@
 <head>
   <title>LEGEND by Marie Lu</title>
   <style>
-    body {
+      body {
       margin: 0;
       padding: 0;
     }
@@ -148,7 +148,11 @@
   <button onclick="goToPrevPage()">Previous Page</button>
   <script>
     let currentPage = 1;
-    let texts = ['dummy text 1', 'dummy text 2', 'dummy text 3']; // Add more texts as needed
+    let texts = [
+      ['left text 1', 'right text 1'],
+      ['left text 2', 'right text 2'],
+      ['left text 3', 'right text 3']
+    ]; // Add more pairs as needed
 
     function goToNextPage() {
       currentPage = (currentPage % texts.length) + 1;
@@ -161,10 +165,11 @@
     }
 
     function updatePageText() {
-      document.getElementById('leftPageText').textContent = texts[currentPage - 1];
-      document.getElementById('rightPageText').textContent = texts[currentPage - 1];
+      document.getElementById('leftPageText').textContent = texts[currentPage - 1][0];
+      document.getElementById('rightPageText').textContent = texts[currentPage - 1][1];
       document.querySelector('.circle').textContent = currentPage;
     }
   </script>
 </body>
 </html>
+
