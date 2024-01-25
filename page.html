@@ -144,11 +144,15 @@
   </div>
   <a href="index.html">Previous Page</a>
   <button onclick="goToNextPage()">Next Page</button>
+ <button onclick="goToPrevPage()">PreviousPage</button>
   <script>
     function goToNextPage() {
       document.querySelector('.page-left p').textContent = 'dummy text 2';
       document.querySelector('.page-right p').textContent = 'dummy text 2';
     }
+     function goToNextPage() {
+      document.querySelector('.page-left p').textContent = 'dummy text 1';
+      document.querySelector('.page-right p').textContent = 'dummy text 1';
   </script>
 </body>
 </html>
