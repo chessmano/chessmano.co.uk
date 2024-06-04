@@ -5,6 +5,7 @@ body {
     height: 100vh;
     background-color: #f5f5f5;
     font-family: 'Arial', sans-serif;
+    margin: 0;
 }
 
 .calculator {
@@ -12,7 +13,9 @@ body {
     border-radius: 10px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
     overflow: hidden;
-    width: 320px;
+    width: 100vw; /* Set width to viewport width */
+    display: flex;
+    flex-direction: column;
 }
 
 .display {
@@ -70,4 +73,20 @@ button:nth-child(4n):hover {
 
 button:nth-child(4n):active {
     background-color: #ff7f00;
+}
+
+/* Media Query for Landscape Orientation */
+@media (orientation: landscape) {
+    .calculator {
+        flex-direction: row;
+    }
+
+    .buttons {
+        grid-template-columns: repeat(6, 1fr);
+        flex: 2;
+    }
+
+    .display {
+        flex: 1;
+    }
 }
